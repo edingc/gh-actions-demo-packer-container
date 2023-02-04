@@ -1,11 +1,11 @@
-name: Setup Packer
+name: Build and Push Container
 on: [push]
 jobs:
   run-build:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Setup HashiCorp Packer
+      - name: Setup HashiCorp packer
         uses: hashicorp/setup-packer@v2.0.0
         
       - name: Check out the repo
