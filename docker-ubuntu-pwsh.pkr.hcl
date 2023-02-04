@@ -9,7 +9,6 @@ packer {
 
 variable  "docker_repo" {
   type = string
-  sensitive = true
 }
 
 variable  "docker_username" {
