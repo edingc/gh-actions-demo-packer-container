@@ -8,8 +8,13 @@ jobs:
       - name: Setup HashiCorp packer
         uses: hashicorp/setup-packer@v2.0.0
         
-      - name: Check out the repo
+      - name: Check out this repo
         uses: actions/checkout@v3
+      
+      - name: Check out my source file repo
+        uses: actions/checkout@v3   
+        with:
+          repository: edingc/gh-actions-demo-files
         
       - name: Run `packer init`
         id: init
