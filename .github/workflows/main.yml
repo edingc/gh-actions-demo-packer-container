@@ -20,5 +20,5 @@ jobs:
         run: "packer validate ./docker-ubuntu-pwsh.pkr.hcl"
         
       - name: Run `packer build`
-        id: validate
+        id: build
         run: "packer build ./docker-ubuntu-pwsh.pkr.hcl"
