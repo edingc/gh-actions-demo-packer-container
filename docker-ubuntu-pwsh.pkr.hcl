@@ -36,11 +36,10 @@ build {
     "source.docker.ubuntu"
   ]
   
-  provisioner "shell" {
-    inline = [
-      "cp -R /github/workspace/source/* /"
-    ]
-  }
+provisioner "file" {
+  source = "/github/workspace/source/*"
+  destination = "/"
+}
 
   post-processors {
     post-processor "docker-tag" {
