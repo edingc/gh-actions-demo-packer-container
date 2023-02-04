@@ -10,3 +10,11 @@ jobs:
         
       - name: Check out the repo
         uses: actions/checkout@v3
+        
+      - name: Run `packer init`
+        id: init
+        run: "packer init ./docker-ubuntu-pwsh.pkr.hcl"
+
+      - name: Run `packer validate`
+        id: validate
+        run: "packer validate ./docker-ubuntu-pwsh.pkr.hcl"
