@@ -40,7 +40,7 @@ build {
   post-processors {
     post-processor "docker-tag" {
       repository = var.docker_repo
-      tags       = ["1.0"]
+      tags       = ["latest", var.tag]
     }
 
     post-processor "docker-push" {
