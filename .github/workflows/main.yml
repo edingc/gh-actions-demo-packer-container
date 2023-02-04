@@ -3,13 +3,15 @@ on: [push]
 jobs:
   setup-packer:
     runs-on: ubuntu-latest
+    steps:
 
       - name: Setup HashiCorp Packer
         uses: hashicorp/setup-packer@v2.0.0
 
 jobs:
   checkout-repo:
-  needs: setup-packer
+    needs: setup-packer
+    steps:
         
       - name: Check out the repo
         uses: actions/checkout@v3
