@@ -21,4 +21,4 @@ jobs:
         
       - name: Run `packer build`
         id: build
-        run: "packer build ./docker-ubuntu-pwsh.pkr.hcl"
+        run: "packer -var tag=${GITHUB_RUN_ID} -var docker_repo=${DOCKER_REPO} -var docker_username=${DOCKER_USERNAME} -var docker_password=${DOCKER_PASSWORD} build ./docker-ubuntu-pwsh.pkr.hcl"
