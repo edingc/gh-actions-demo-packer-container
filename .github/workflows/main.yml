@@ -17,7 +17,7 @@ jobs:
 
       - name: Run `packer validate`
         id: validate
-        run: "packer validate ./docker-ubuntu-pwsh.pkr.hcl"
+        run: "packer -var tag=${GITHUB_RUN_ID} -var docker_repo=${DOCKER_REPO} -var docker_username=${DOCKER_USERNAME} -var docker_password=${DOCKER_PASSWORD} validate ./docker-ubuntu-pwsh.pkr.hcl"
         
       - name: Run `packer build`
         id: build
