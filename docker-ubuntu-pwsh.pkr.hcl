@@ -37,6 +37,7 @@ build {
   ]
   provisioner "shell" {
     inline = [
+    "apt-get update",
     "apt-get install --no-install-recommends -y git",
     "git clone --depth 1 https://github.com/edingc/gh-actions-demo-files.git /opt",
     "apt-get dist-upgrade -y",
