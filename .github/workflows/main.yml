@@ -28,7 +28,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: "edingc/gh-action-demo:${GITHUB_RUN_ID}"
+          image-ref: "edingc/gh-action-demo:latest"
           format: "sarif"
           output: "trivy-results.sarif"
 
