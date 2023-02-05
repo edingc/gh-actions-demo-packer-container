@@ -35,18 +35,22 @@ build {
   sources = [
     "source.docker.ubuntu"
   ]
-  
-provisioner "file" {
-  source = "/github/workspace/source/*"
-  destination = "/"
-}
-
+  provisioner "shell" {
+    inline = [
+    "apt-get install --no-install-recommends -y git",
+    "git clone --depth 1 https://github.com/edingc/gh-actions-demo-files.git /opt",
+    "apt-get dist-upgrade -y",
+    "apt-get remove -y git",
+    "apt-get autoremove",
+    "apt-get clean",
+    "rm -rf /var/lib/apt/lists/*"
+    ]
+  }
   post-processors {
     post-processor "docker-tag" {
       repository = var.docker_repo
       tags       = ["latest", var.tag]
     }
-
     post-processor "docker-push" {
       login=true
       login_username = var.docker_username
