@@ -1,5 +1,5 @@
 name: Build and Push Container
-on: [push]
+on: [repository_dispatch]
 jobs:
   run-build:
     runs-on: ubuntu-latest
@@ -7,15 +7,9 @@ jobs:
 
       - name: Setup HashiCorp packer
         uses: hashicorp/setup-packer@v2.0.0
-        
+      
       - name: Check out this repo
         uses: actions/checkout@v3
-      
-      - name: Check out my source file repo
-        uses: actions/checkout@v3   
-        with:
-          repository: edingc/gh-actions-demo-files
-          path: ./source
         
       - name: Run `packer init`
         id: init
@@ -28,3 +22,16 @@ jobs:
       - name: Run `packer build`
         id: build
         run: "packer build -var tag=${GITHUB_RUN_ID} -var docker_repo=${{ vars.DOCKER_REPO }} -var docker_username=${{ vars.DOCKER_USERNAME }} -var docker_password=${{ secrets.DOCKER_PASSWORD }} ./docker-ubuntu-pwsh.pkr.hcl"
+        
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'edingc/gh-action-demo:${GITHUB_RUN_ID}'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
