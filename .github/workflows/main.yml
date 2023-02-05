@@ -19,21 +19,21 @@ jobs:
 
       - name: Run `packer validate`
         id: validate
-        run: "packer validate -var tag=${GITHUB_RUN_ID} -var docker_repo=${{ vars.DOCKER_REPO }} -var docker_username=${{ vars.DOCKER_USERNAME }} -var docker_password=${{ secrets.DOCKER_PASSWORD }} ./docker-ubuntu-pwsh.pkr.hcl"
+        run: "packer validate -var tag=${{ GITHUB_RUN_ID }} -var docker_repo=${{ vars.DOCKER_REPO }} -var docker_username=${{ vars.DOCKER_USERNAME }} -var docker_password=${{ secrets.DOCKER_PASSWORD }} ./docker-ubuntu-pwsh.pkr.hcl"
         
       - name: Run `packer build`
         id: build
-        run: "packer build -var tag=${GITHUB_RUN_ID} -var docker_repo=${{ vars.DOCKER_REPO }} -var docker_username=${{ vars.DOCKER_USERNAME }} -var docker_password=${{ secrets.DOCKER_PASSWORD }} ./docker-ubuntu-pwsh.pkr.hcl"
+        run: "packer build -var tag=${{ GITHUB_RUN_ID }} -var docker_repo=${{ vars.DOCKER_REPO }} -var docker_username=${{ vars.DOCKER_USERNAME }} -var docker_password=${{ secrets.DOCKER_PASSWORD }} ./docker-ubuntu-pwsh.pkr.hcl"
         
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'edingc/gh-action-demo:${GITHUB_RUN_ID}'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
+          image-ref: "edingc/gh-action-demo:${{ GITHUB_RUN_ID }}"
+          format: "sarif"
+          output: "trivy-results.sarif"
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         if: always()
         with:
-          sarif_file: 'trivy-results.sarif'
+          sarif_file: "trivy-results.sarif"
