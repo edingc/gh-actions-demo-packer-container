@@ -42,7 +42,6 @@ build {
     "git clone --depth 1 https://github.com/edingc/gh-actions-demo-files.git /opt/gh-actions-demo-files",
     "apt-get dist-upgrade -y",
     "apt-get remove -y git",
-    "apt-get autoremove",
     "apt-get clean",
     "rm -rf /var/lib/apt/lists/*"
     ]
